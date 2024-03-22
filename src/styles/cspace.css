@@ -1,0 +1,316 @@
+* {
+  box-sizing: border-box;
+  padding: 0 0;
+  border: none;
+}
+body{
+  background-color: #272727;
+}
+.errorMSG{
+  position:absolute;top:50vh;left:50vw;
+  transform: translate(-50%,-50%);
+  color:white;font-size:2.4rem;
+  font-family:monospace;outline:2px dotted white;
+  border-radius: 1rem;outline-offset: 5rem;
+  background-clip: border-box;
+  text-align: center;background:repeating-linear-gradient(to right,rgba(255,255,255,0.2) 1rem ,transparent 2rem);
+}
+@media only screen and (max-width:500px) {
+  .cspace {
+    display: flex;
+    flex-direction: column;
+    gap: max(.5vh, 2rem);
+  }
+
+  h1 {
+    float: right;
+    position: sticky;
+  }
+  #searchbar{
+    position:fixed;top:4rem;right:1rem;
+  }
+}
+
+@media only screen and (min-width:501px) {
+  .cspace {
+    display: grid;
+    place-items: center;
+    grid-template-rows: max(150px, 5%) auto;
+    grid-template-columns: minmax(200px, 20%) auto;
+  }
+
+  h1 {
+    position: absolute;
+  }
+  #searchbar{
+    position: absolute;
+  right: 2.5rem;
+  top: 2em;
+  }
+}
+
+:root {
+  --brand: #f4c829;
+  --primary: #3b2417;
+  --secondary: #c6272b;
+  --tertiary: #ffdcaf;
+  --dark1:#070400;
+  --dark2:#333133;
+  --light1:#827f86;
+  --light2:#bbbcc0;
+}
+
+h1,
+h2,
+h3 {
+
+  font-size: 3em;
+  right: 2.12em;
+  font-family: Consolas;
+  background: linear-gradient(-46deg, white 40%, #272727 41%, #272727 100%);
+  top: 0.5em;
+  color: #ddd;
+  --webkit-text-stroke: 4px white;
+  mix-blend-mode: difference;
+  border: 1rem double white;
+  padding: .2em 2em;
+}
+
+.cspace {
+  background: #272727;
+  gap: 1.4rem;
+  /* background: url('https://previews.123rf.com/images/amadeus542/amadeus5421603/amadeus542160300277/53863567-moire-effect-background-design-abstract-background-pattern-black-and-white.jpg'); */
+  height: 100vh;
+  width: 100vw;
+
+  background-size: cover;
+}
+
+#frlist {
+  grid-area: 2 / 1 / 2 / 1;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;overflow:hidden;
+  justify-content: start;
+  background: white radial-gradient(circle at 50%, rgb(51, 51, 51, 0.1) 0%, rgb(51, 51, 51, 0.4) 100%);
+  justify-content: stretch;
+  align-items: center;
+}
+
+#frlist>label {
+  background: rgb(39, 39, 39, 0.6);
+  font-weight: bold;
+  width: 100%;
+  outline: .6rem solid #272727;
+  padding: 1em;
+  font-family: Bahnschrift;
+  font-size: 1.3em;
+  letter-spacing: 0.2em;
+}
+
+#frlist>label.active {
+  background: rgb(39, 39, 39, 0.6) radial-gradient(circle at 50%, rgba(27, 27, 27, 0.3) 0%, rgba(27, 27, 27, 0.8) 100%);
+}
+
+#searchbar {
+  border-radius: 50%;
+  aspect-ratio: 1;
+  transition: .2s ease-in forwards;
+  height: 3.5em;
+  background-color: rgb(196, 39, 44, 0.6);
+  display: grid;
+  grid-template-rows: minmax(20px, 2vh) auto;
+  gap: 0;
+}
+
+#searchbar:hover {
+  animation: expand 0.25s 1 ease-in-out forwards;
+}
+
+.sheader {
+  display: flex;
+  justify-content: space-around;
+  grid-row: 1 / 1;
+  width: 60%;
+}
+#search{
+  transform: scale(2) translate(50%,50%);
+}
+
+.sheader svg {
+  height: 0.32rem;
+  aspect-ratio: 1;
+}
+
+
+#sresults {
+  display: flex;
+  flex-direction: column;
+  grid-row: 2 / 2;
+  grid-column: 1 / 1;
+  width: 60%;
+}
+
+#searchbar input {
+  /* transform:scale(0.2); */
+  height: 0.5rem;
+  width: 55px;
+  font-size: .2rem;
+}
+
+#sresults>label {
+  font-size: 0.3rem;
+  padding: .1rem;
+  border-radius: .6em;
+  width: 100%;
+  margin: 0;
+  border: 1.45px solid white;
+  background: #272727;
+  color: white;
+  text-align: center;
+  font-family: Bahnschrift;
+}
+
+#sresults>label:hover {
+  background: white;
+  color: #272727;
+}
+
+@keyframes expand {
+  100% {
+    border-radius: .2em;
+    transform: scale(5);
+    transform-origin: top right;
+    background: #272727;
+    /* background-color: rgb(196, 39, 44, 1); */
+  }
+}
+
+
+#suser {
+  filter: brightness(120%);
+  height: 2rem;
+  font-size: 1rem;
+  font-family: Consolas;
+  font-weight: bold;
+}
+
+#search1 {
+  color: white;
+  cursor: pointer;
+  transform: scale(2.75) translate(40%, 40%);
+}
+
+#searchbar>label {
+  border: .3em double white;
+  width: 100%;
+}
+
+#chatsect {
+  grid-row: 2;
+  grid-column: 2;
+  border: 1.11em double #272727;
+  border-radius: 1em;
+  transition: .2s ease-in forwards;
+  height: 100%;
+  width: 97%;
+  background: white radial-gradient(circle at 50%, rgb(51, 51, 51, 0.1) 0%, rgb(51, 51, 51, 0.4) 100%);
+  display: grid;
+  grid-row-gap: 0px;
+  grid-template-rows: auto max(80px, 5%);
+}
+
+.chathistory {
+  backdrop-filter: brightness(80%);
+  display: grid;
+  overflow-y: scroll;
+}
+
+.chathistory blockquote {
+  display: grid;
+  place-items: center;
+  font-family: system-ui;
+  border-radius: 1rem;
+  background: white;
+  border: #ddd solid .15rem;
+  padding: 1.6rem 3rem;
+  font-size: 1.2rem;
+  height: fit-content;
+  width: fit-content;
+}
+.chathistory svg{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  height:max(100px,40%);width:max(100px,40%);
+  filter:opacity(0.6);
+}
+.chathistory::-webkit-scrollbar{
+  background:#27272722;
+}
+.sent {
+  justify-self: left;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 43% 76%, 16% 98%, 23% 76%, 0% 75%);
+}
+
+.recieved {
+  justify-self: right;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
+}
+
+#chatbox {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-left: 2%;
+  /* transform: translate(10%,0%); */
+}
+
+fieldset>* {
+  margin: 0.3rem;
+  color: white;
+  font-size: 1em;
+  text-indent: 0.2rem;
+  text-shadow: #f2f2f2;
+  font-family: Helvetica, sans-serif;
+}
+
+input[type='textarea']:focus {
+  border: 2px solid white;
+}
+
+#chatbox input[type='textarea']:hover {
+  backdrop-filter: brightness(50%);
+  border: none;
+  transform: scale(103%);
+  mix-blend-mode: lighten;
+}
+
+#chatbox input[type='textarea'] {
+  transition: 0.15s ease-in;
+  width: 80%;
+  height: 80%;
+  background: transparent;
+  backdrop-filter: brightness(120%);
+  filter: brightness(120%);
+  letter-spacing: 0.2rem;
+}
+
+#chatbox button {
+  margin-left: .75em;
+  cursor: pointer;
+  color: white;
+  font-size: 2.3em;
+  height: 1.82em;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: url("https://api.iconify.design/material-symbols:send.svg?color=%272727");
+  font-family: monospace;
+  background-size: 100%;
+  /* outline:1px solid black;outline-offset: .1em; */
+}
+
+button:hover {
+  box-shadow: inset -.1em -.1em rgb(0, 0, 0, 0.35);
+}
