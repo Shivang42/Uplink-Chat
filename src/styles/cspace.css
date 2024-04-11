@@ -3,18 +3,27 @@
   padding: 0 0;
   border: none;
 }
-body{
+
+body {
   background-color: #272727;
 }
-.errorMSG{
-  position:absolute;top:50vh;left:50vw;
-  transform: translate(-50%,-50%);
-  color:white;font-size:2.4rem;
-  font-family:monospace;outline:2px dotted white;
-  border-radius: 1rem;outline-offset: 5rem;
+
+.errorMSG {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2.4rem;
+  font-family: monospace;
+  outline: 2px dotted white;
+  border-radius: 1rem;
+  outline-offset: 5rem;
   background-clip: border-box;
-  text-align: center;background:repeating-linear-gradient(to right,rgba(255,255,255,0.2) 1rem ,transparent 2rem);
+  text-align: center;
+  background: repeating-linear-gradient(to right, rgba(255, 255, 255, 0.2) 1rem, transparent 2rem);
 }
+
 @media only screen and (max-width:500px) {
   .cspace {
     display: flex;
@@ -24,10 +33,14 @@ body{
 
   h1 {
     float: right;
+    margin: 1rem;
     position: sticky;
   }
-  #searchbar{
-    position:fixed;top:4rem;right:1rem;
+
+  #searchbar {
+    position: fixed;
+    top: 4rem;
+    right: 1rem;
   }
 }
 
@@ -42,10 +55,11 @@ body{
   h1 {
     position: absolute;
   }
-  #searchbar{
+
+  #searchbar {
     position: absolute;
-  right: 2.5rem;
-  top: 2em;
+    right: 1.5rem;
+    top: 4rem;
   }
 }
 
@@ -54,10 +68,13 @@ body{
   --primary: #3b2417;
   --secondary: #c6272b;
   --tertiary: #ffdcaf;
-  --dark1:#070400;
-  --dark2:#333133;
-  --light1:#827f86;
-  --light2:#bbbcc0;
+  --dark1: #070400;
+  --dark2: #333133;
+  --light1: #827f86;
+  --light2: #bbbcc0;
+
+  --conn:rgb(28, 245, 28);
+  --disconn:rgb(245, 61, 28);
 }
 
 h1,
@@ -91,27 +108,48 @@ h3 {
   height: 100%;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 0px;overflow:hidden;
+  flex-direction: column; gap: 0px;
+  overflow: hidden;
   justify-content: start;
   background: white radial-gradient(circle at 50%, rgb(51, 51, 51, 0.1) 0%, rgb(51, 51, 51, 0.4) 100%);
   justify-content: stretch;
   align-items: center;
 }
 
-#frlist>label {
+#frlist div {
   background: rgb(39, 39, 39, 0.6);
   font-weight: bold;
-  width: 100%;
+  width: 100%;display:flex;justify-content: space-between;
   outline: .6rem solid #272727;
   padding: 1em;
   font-family: Bahnschrift;
   font-size: 1.3em;
   letter-spacing: 0.2em;
+  cursor:pointer;
+}
+#frlist svg{
+  position:relative;float:right;
+  height:2rem;cursor:pointer;
+}
+#frlist span{
+  flex-shrink:0;
+}
+#frlist label{
+  flex-shrink:1;
 }
 
-#frlist>label.active {
-  background: rgb(39, 39, 39, 0.6) radial-gradient(circle at 50%, rgba(27, 27, 27, 0.3) 0%, rgba(27, 27, 27, 0.8) 100%);
+#frlist .act{
+  fill:var(--conn);
+  filter: drop-shadow(0 0 0.25rem var(--conn));
+}
+#frlist .inact{
+  fill:var(--disconn);
+  filter: drop-shadow(0 0 0.25rem var(--disconn));
+}
+#frlist>.active {
+  background:white;filter:brightness(120%);
+  color:#272727;
+  /* background: rgb(39, 39, 39, 0.6) radial-gradient(circle at 50%, rgba(27, 27, 27, 0.3) 0%, rgba(27, 27, 27, 0.8) 100%); */
 }
 
 #searchbar {
@@ -135,8 +173,9 @@ h3 {
   grid-row: 1 / 1;
   width: 60%;
 }
-#search{
-  transform: scale(2) translate(50%,50%);
+
+#search {
+  transform: scale(2) translate(50%, 50%);
 }
 
 .sheader svg {
@@ -209,46 +248,75 @@ h3 {
 }
 
 #chatsect {
-  grid-row: 2;
-  grid-column: 2;
+  grid-row: 2;grid-column: 2;
   border: 1.11em double #272727;
   border-radius: 1em;
   transition: .2s ease-in forwards;
-  height: 100%;
-  width: 97%;
+  height: 100%;width: 97%;
   background: white radial-gradient(circle at 50%, rgb(51, 51, 51, 0.1) 0%, rgb(51, 51, 51, 0.4) 100%);
-  display: grid;
-  grid-row-gap: 0px;
+  display: grid;grid-row-gap: 0px;
   grid-template-rows: auto max(80px, 5%);
 }
 
 .chathistory {
   backdrop-filter: brightness(80%);
-  display: grid;
-  overflow-y: scroll;
+  display: grid;height: 55vh;
+  overflow-y: scroll;scroll-behavior: smooth;
 }
-
+.chathistory fieldset{
+  gap:0rem;
+  position:absolute;background:white;width:10rem;
+  display:flex;flex-direction:column;
+}
+.chathistory fieldset button{
+  color:black;cursor:pointer;
+  font-family:Helvetica !important;
+  padding:1rem 0rem;margin:0px;
+}
+.chathistory fieldset button:nth-child(1):hover{
+  background:radial-gradient(#c6272b 0%,#c6272bd4 100%);color:white;
+}
+.chathistory fieldset button:hover{
+  background:radial-gradient(#272727 0%,#272727d4 100%);color:white;
+  box-shadow:inset 0px 0px #ffffffd3;
+}
 .chathistory blockquote {
   display: grid;
+  color: white;
   place-items: center;
   font-family: system-ui;
   border-radius: 1rem;
-  background: white;
-  border: #ddd solid .15rem;
+  background: #272727;
+  border: white dashed .35rem;
   padding: 1.6rem 3rem;
   font-size: 1.2rem;
   height: fit-content;
   width: fit-content;
 }
-.chathistory svg{
-  position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  height:max(100px,40%);width:max(100px,40%);
-  filter:opacity(0.6);
+.chathistory blockquote > p {
+  font-size:.7rem;color:  grey !important;
+  color:white;font-family:monospace;
+  float:right;position:absolute;
+  transform: translate(60%,-200%);
 }
-.chathistory::-webkit-scrollbar{
-  background:#27272722;
+.chathistory svg {
+  position: absolute;
+  top: 50%;left: 50%;
+  transform: translate(-50%, -50%);
+  height: max(100px, 40%);
+  width: max(100px, 40%);
+  filter: opacity(0.6);
 }
+
+.chathistory::-webkit-scrollbar {
+  background: #27272722;
+}
+
+.chathistory::-webkit-scrollbar-thumb {
+  background: #272727d2;
+  border-radius: 1.8rem;
+}
+
 .sent {
   justify-self: left;
   clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 43% 76%, 16% 98%, 23% 76%, 0% 75%);
@@ -263,7 +331,7 @@ h3 {
   display: flex;
   justify-content: start;
   align-items: center;
-  margin-left: 2%;
+  margin-left: 2%;color:#ddd;
   /* transform: translate(10%,0%); */
 }
 
@@ -289,8 +357,8 @@ input[type='textarea']:focus {
 
 #chatbox input[type='textarea'] {
   transition: 0.15s ease-in;
-  width: 80%;
-  height: 80%;
+  width: 80%;color:#ddd;
+  height: 80%;text-wrap:pretty;
   background: transparent;
   backdrop-filter: brightness(120%);
   filter: brightness(120%);
@@ -313,4 +381,5 @@ input[type='textarea']:focus {
 
 button:hover {
   box-shadow: inset -.1em -.1em rgb(0, 0, 0, 0.35);
+  /* filter:invert();background:black; */
 }
