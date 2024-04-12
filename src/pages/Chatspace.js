@@ -10,7 +10,6 @@ import Searchbar from './Searchbar';
 import Auth from './Auth';
 
 function Chatspace() {
-
     const [uid, setUid] = useState((localStorage.getItem('friends') && JSON.parse(localStorage.getItem('friends')).uid) ? JSON.parse(localStorage.getItem('friends')).uid : '0');
     const [activeFriend, setActFriend] = useState('');
     const [friends, setFriends] = useState((JSON.parse(localStorage.getItem('friends')) && JSON.parse(localStorage.getItem('friends')).friends) ? JSON.parse(localStorage.getItem('friends')).friends : []);
@@ -72,21 +71,18 @@ function Chatspace() {
         });
         return resp.data;
     }
+    let request = (user)=>{
+        requid(user).then((data) => {
+            localStorage.setItem('friends', JSON.stringify({ uid: data.uid, friends: [] }));
+            setUid(JSON.parse(localStorage.getItem('friends')).uid);
+            setFriends(JSON.parse(localStorage.getItem('friends')).friends);
+        }).catch((err) => {
+            console.log(err);
+            // window.alert(`http://${window.location.hostname}:3000`);
+        });
+    };
     useEffect(() => {
-        if (!localStorage.getItem('friends') || !JSON.parse(localStorage.getItem('friends')).friends) {
-            //CHange this random generation to API call to backend to genfetchtoken
-            // let randuid = parseInt(Math.random() * 10000);
-            let user = window.prompt("Enter your username");
-            requid(user).then((data) => {
-                localStorage.setItem('friends', JSON.stringify({ uid: data.uid, friends: [] }));
-                setUid(JSON.parse(localStorage.getItem('friends')).uid);
-                setFriends(JSON.parse(localStorage.getItem('friends')).friends);
-            }).catch((err) => {
-                console.log(err);
-                // window.alert(`http://${window.location.hostname}:3000`);
-            });
-        }
-        else {
+        if(uid!=='0') {
             setUid(JSON.parse(localStorage.getItem('friends')).uid);
             setFriends(JSON.parse(localStorage.getItem('friends')).friends)
         }
@@ -175,7 +171,7 @@ function Chatspace() {
         }
     },
         [friends]);
-    if (localStorage.getItem('friends')) {
+    if (uid!=='0') {
         return (
             <div className='cspace'>
                 <h1>{uid}</h1>
@@ -188,7 +184,7 @@ function Chatspace() {
     else {
         return (
             // Make this the lander with a modal form
-            <Auth />
+            <Auth reqid={request} />
         )
     }
     // return (
